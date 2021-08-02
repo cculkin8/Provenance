@@ -1,0 +1,35 @@
+.container-login{
+    margin-right: auto;
+    margin-left: auto;
+    
+    width: 20em;
+    height: 25%;
+    padding: 1em;
+    padding-top: .5em;
+    border-radius: .5em;
+    background-color: rgb(199, 234, 255);
+    margin-top: 15em;
+}
+
+.container-registration{
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1em;
+    width: 20em;
+    border-radius: .5em;
+    background-color: rgb(199, 234, 255);
+    margin-top: 5em;
+}
+
+.container-login img{
+    height: 100px;
+    width:100px;
+    border-radius: 50%;
+    margin-top: -5em;
+    
+    margin-left: 5.75em;
+}
+
+#disabledSelect {
+    visibility: hidden;
+  }
