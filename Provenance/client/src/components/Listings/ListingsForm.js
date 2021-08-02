@@ -37,7 +37,8 @@ const ListingForm = () => {
             getListingById(id).then(setCurrentListing);
         }
     }, [id]);
-debugger
+
+    
     useEffect(() => {
         if (currentListing) {
             if (id) {
