@@ -3,7 +3,7 @@ import { Card, CardBody, Col, Row, Button, Form, FormGroup, Label, Input } from 
 import { getUserById,DeleteUser, activateUser  } from "../../modules/userManager";
 import { useHistory, useParams } from "react-router";
 
-const UserCard = () => {
+const UserProfCard = () => {
     const { id } = useParams();
     const history = useHistory();
     const [isdeleted, setIsdeleted] = useState("");
@@ -102,4 +102,4 @@ const UserCard = () => {
     )
 }
 
-export default UserCard;
+export default UserProfCard;

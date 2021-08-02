@@ -85,11 +85,11 @@ export const ListingsManager = (props) => {
     };
 
     return (
-        <ListingContext.Provider
+        <ListingsContext.Provider
             value={{ listings, getAllListings, getListingsById, getListingsByUserProfileId, deleteListing, addListing, updateListing }}
         >
             {props.children}
-        </ListingContext.Provider>
+        </ListingsContext.Provider>
     );
 };
 const baseUrl = '/api/listings';

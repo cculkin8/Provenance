@@ -1,16 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { PostContext } from '../../modules/PostManager';
+import { ListingsContext } from '../../modules/listingsManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { UserProfileContext } from '../../modules/UserProfileManager';
 
-const PostForm = () => {
+const ListingForm = () => {
     const dateFormatter = (date) => {
         const [yyyymmdd, time] = date.split('T');
         return yyyymmdd;
     };
     
-    const { addPost, getPostById, updatePost } = useContext(PostContext);
+    const { addListing, getListingById, updateListing } = useContext(ListingsContext);
     const { currentUserId } = useContext(UserProfileContext);
     const [userProfileId, setUserProfileId] = useState(0);
     const [imageLocation, setImageLocation] = useState('');
@@ -20,7 +20,7 @@ const PostForm = () => {
     const [publishDateTime, setPublishDateTime] = useState(
         dateFormatter(new Date().toISOString())
     );
-    const [currentPost, setCurrentPost] = useState();
+    const [currentListing, setCurrentListing] = useState();
 
     const history = useHistory();
 
@@ -32,26 +32,26 @@ const PostForm = () => {
         setContent('');
         setCategoryId(1);
         setPublishDateTime(dateFormatter(new Date().toISOString()));
-        setCurrentPost();
+        setCurrentListing();
         if (id) {
-            getPostById(id).then(setCurrentPost);
+            getListingById(id).then(setCurrentListing);
         }
     }, [id]);
 debugger
     useEffect(() => {
-        if (currentPost) {
+        if (currentListing) {
             if (id) {
-                if (currentUserId !== currentPost.userProfileId) {
+                if (currentUserId !== currentListing.userProfileId) {
                     history.push('/');
                 }
             }
-            setPublishDateTime(dateFormatter(currentPost.publishDateTime));
-            setCategoryId(currentPost.categoryId);
-            setImageLocation(currentPost.imageLocation);
-            setTitle(currentPost.title);
-            setContent(currentPost.content);
+            setPublishDateTime(dateFormatter(currentListing.publishDateTime));
+            setCategoryId(currentListing.categoryId);
+            setImageLocation(currentListing.imageLocation);
+            setTitle(currentListing.title);
+            setContent(currentListing.content);
         }
-    }, [currentPost, currentUserId]);
+    }, [currentListing, currentUserId]);
 
     useEffect(() => {
         setUserProfileId(currentUserId);
@@ -59,7 +59,7 @@ debugger
 
     const handleClickSaveButton = (evt) => {
         if (!id) {
-            const post = {
+            const listing = {
                 imageLocation,
                 title,
                 content,
@@ -67,32 +67,32 @@ debugger
                 userProfileId,
                 publishDateTime,
             };
-            addPost(post).then((p) => {
-                history.push('/posts');
+            addListing(listing).then((p) => {
+                history.push('/listings');
             });
         } else {
-            const newPost = { ...currentPost };
-            newPost.title = title;
-            newPost.imageLocation = imageLocation;
-            newPost.categoryId = categoryId;
-            newPost.content = content;
-            newPost.publishDateTime = publishDateTime;
-            updatePost(newPost).then(() => {
-                history.push(`/posts/${newPost.id}`);
+            const newListing = { ...currentListing };
+            newListing.title = title;
+            newListing.imageLocation = imageLocation;
+            newListing.categoryId = categoryId;
+            newListing.content = content;
+            newListing.publishDateTime = publishDateTime;
+            updateListing(newListing).then(() => {
+                history.push(`/listings/${newListing.id}`);
             });
         }
     };
 
     return (
         <Form className="container col-md-6">
-            <h2>{id ? 'Edit Post' : 'New Post'}</h2>
+            <h2>{id ? 'Edit Listing' : 'New Listing'}</h2>
             <FormGroup>
                 <Label for="title">Title</Label>
                 <Input
                     type="text"
                     name="title"
                     id="title"
-                    placeholder="Post Title"
+                    placeholder="Listing Title"
                     autoComplete="off"
                     onChange={(e) => {
                         setTitle(e.target.value);
@@ -144,4 +144,4 @@ debugger
         </Form>
     );
 };
-export default PostForm
+export default ListingForm

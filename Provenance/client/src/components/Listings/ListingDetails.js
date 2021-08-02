@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import { ListingContext } from "../../modules/ListingManager.js";
+import { useParams, useHistory} from 'react-router-dom';
+import { ListingsContext } from "../../modules/listingsManager";
 import { UserProfileContext } from '../../modules/UserProfileManager.js';
 import "./Listing.css"
 
@@ -8,7 +8,7 @@ import "./Listing.css"
 export const ListingDetails = () => {
     const { id } = useParams();
     const [listing, setListing] = useState();
-    const { getListingById, deleteListing } = useContext(ListingContext);
+    const { getListingById, deleteListing } = useContext(ListingsContext);
     const history = useHistory();
     const { currentUserId } = useContext(UserProfileContext);
 

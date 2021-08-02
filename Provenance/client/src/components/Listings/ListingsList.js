@@ -1,21 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ListingContext } from '../../modules/ListingManager.js';
+import { ListingsContext } from '../../modules/listingsManager';
 import Listing from './ListingListCard';
 import { Link } from 'react-router-dom';
 
 
 const ListingList = () => {
     const { listings, getAllListings, getListingsByUserProfileId } = useContext(
-        ListingContext
+        ListingsContext
     );
     const { id } = useParams();
 
     useEffect(() => {
         if (!id) {
-            getAllListing();
+            getAllListings();
         } else {
-            getListingByUserProfileId(id);
+            getListingsByUserProfileId(id);
         }
     }, [id]);
 

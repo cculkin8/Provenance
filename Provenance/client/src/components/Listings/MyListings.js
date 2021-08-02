@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllUserListings } from '../../modules/ListingsManager';
+import { getAllUserListings } from '../../modules/listingsManager';
 import Listing from "./ListingListCard";
 import "./Listing.css"
 const MyListings = () => {
@@ -20,7 +20,7 @@ const MyListings = () => {
       <h1>My Listings</h1>
       <div className="container">
         <div className="listingDiv">
-          { listings.map((list) => (
+          { listings.map((listing) => (
             <Listing listing={ listing } key={ listing.id } />
           )) }
         </div>

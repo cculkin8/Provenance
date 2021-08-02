@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardBody } from "reactstrap";
 import { useHistory } from "react-router";
 import { DeleteUser, activateUser } from "../../modules/userManager";
+
 export default function UserProfile({ user, getUsers }) {
     const history = useHistory();
     const getDetail = () => {

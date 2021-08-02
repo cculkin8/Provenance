@@ -1,0 +1,14 @@
+
+.centerme{
+    max-width: 99%;
+    max-height: 99%;
+}
+
+.small{
+    max-width: 3%;
+    max-height: 3%;
+}
+
+.subscriptions::-webkit-scrollbar {
+    display: none;
+}
