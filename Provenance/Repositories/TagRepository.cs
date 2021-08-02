@@ -46,7 +46,7 @@ namespace Provenance.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT DISTINCT t.id, t.name FROM Tag t 
-                                        Join PostTag pt on t.id = pt.TagId 
+                                        Join ListingTag pt on t.id = pt.TagId 
                                         Where pt.ListingId = @listingId And t.IsDeleted = 0";
                     cmd.Parameters.AddWithValue("@listingId", listingId);
                     var reader = cmd.ExecuteReader();
@@ -76,7 +76,7 @@ namespace Provenance.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"Delete From PostTag 
+                    cmd.CommandText = @"Delete From ListingTag 
                                         where TagId = @id And ListingId = @listingId";
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@listingId", listingId);
@@ -93,13 +93,13 @@ namespace Provenance.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "Select count(Id) From PostTag Where TagId=@id And ListingId=@listingId";
+                    cmd.CommandText = "Select count(Id) From ListingTag Where TagId=@id And ListingId=@listingId";
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@listingId", listingId);
                     var tags = cmd.ExecuteScalar();
                     if (Convert.ToInt32(tags) == 0)
                     {
-                        cmd.CommandText = @"Insert Into PostTag(TagId, ListingId) 
+                        cmd.CommandText = @"Insert Into ListingTag(TagId, ListingId) 
                                         Values(@id, @listingId)";
                         cmd.ExecuteNonQuery();
                     }
@@ -191,7 +191,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"SELECT pt.listingId, t.name, t.id 
                                 FROM Tag t
-                                left join PostTag pt on t.id = pt.TagId
+                                left join ListingTag pt on t.id = pt.TagId
                                 where pt.ListingId != @id or pt.listingId is null ";
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();

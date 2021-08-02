@@ -39,17 +39,6 @@ namespace Provenance.Controllers
             return Ok(post);
         }
 
-        [HttpGet("comment/{id}")]
-        public IActionResult GetWithComments(int id)
-        {
-            var post = _listingRepository.GetListingByIdWithComments(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-            return Ok(post);
-        }
-
         [HttpGet("userProfileId/{userProfileId}")]
         public IActionResult GetListingByUserProfileId(int userProfileId)
         {

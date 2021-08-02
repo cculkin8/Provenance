@@ -3,7 +3,7 @@ using Provenance.Models;
 
 namespace Provenance.Repositories
 {
-    public interface IPostRepository
+    public interface IListingRepository
     {
         List<Listing> GetAllListings();
         Listing GetListingById(int id);
