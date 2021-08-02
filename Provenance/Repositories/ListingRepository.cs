@@ -21,12 +21,10 @@ namespace Provenance.Repositories
                     cmd.CommandText = @"
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                                 l.IsApproved, l.UserProfileId,
-                                c.Name as CategoryName,
-                                ul.DisplayName
+                                up.DisplayName
                         FROM Listing l
-                        LEFT JOIN Category c on c.Id = l.CategoryId
-                        LEFT JOIN UserProfile up on ul.Id = l.UserProfileId
-                        WHERE l.IsApproved = 1 AND l.IsDeleted = 0 AND l.PublishDateTime < SYSDATETIME() AND ul.isDeleted = 0
+                        LEFT JOIN UserProfile up on up.Id = l.UserProfileId
+                        WHERE l.IsApproved = 1 AND l.IsDeleted = 0 AND l.PublishDateTime < SYSDATETIME() AND up.isDeleted = 0
                         ORDER BY l.CreateDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
@@ -53,10 +51,8 @@ namespace Provenance.Repositories
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                            l.IsApproved, l.UserProfileId,
-                           usl.DisplayName AS CommentUserProfileDisplayName        
                     FROM Listing l
-                    LEFT JOIN UserProfile up on ul.Id = l.UserProfileId
-                    LEFT JOIN UserProfile usp on usl.Id = com.UserProfileId
+                    LEFT JOIN UserProfile up on up.Id = l.UserProfileId
                     WHERE l.Id = @Id AND l.isDeleted = 0";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -92,9 +88,9 @@ namespace Provenance.Repositories
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                            l.IsApproved, l.CategoryId, l.UserProfileId,
-                           ul.DisplayName       
+                           up.DisplayName       
                     FROM Listing l
-                    LEFT JOIN UserProfile up on ul.Id = l.UserProfileId
+                    LEFT JOIN UserProfile up on up.Id = l.UserProfileId
                     WHERE l.UserProfileId = @Id AND l.isDeleted = 0
                     ORDER BY l.CreateDateTime DESC";
 

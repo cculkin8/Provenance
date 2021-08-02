@@ -46,7 +46,7 @@ namespace Provenance
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tabloid", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Provenance", Version = "v1" });
 
                 var securitySchema = new OpenApiSecurityScheme
                 {
@@ -78,7 +78,7 @@ namespace Provenance
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tabloid v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Provenance v1"));
             }
 
             app.UseHttpsRedirection();
