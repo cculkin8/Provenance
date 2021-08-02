@@ -14,7 +14,6 @@ const ListingForm = () => {
     const { currentUserId } = useContext(UserProfileContext);
     const [userProfileId, setUserProfileId] = useState(0);
     const [imageLocation, setImageLocation] = useState('');
-    const [categoryId, setCategoryId] = useState(1); // When Categories will work
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [publishDateTime, setPublishDateTime] = useState(
@@ -30,7 +29,6 @@ const ListingForm = () => {
         setTitle('');
         setImageLocation('');
         setContent('');
-        setCategoryId(1);
         setPublishDateTime(dateFormatter(new Date().toISOString()));
         setCurrentListing();
         if (id) {
@@ -47,7 +45,6 @@ const ListingForm = () => {
                 }
             }
             setPublishDateTime(dateFormatter(currentListing.publishDateTime));
-            setCategoryId(currentListing.categoryId);
             setImageLocation(currentListing.imageLocation);
             setTitle(currentListing.title);
             setContent(currentListing.content);
@@ -64,7 +61,6 @@ const ListingForm = () => {
                 imageLocation,
                 title,
                 content,
-                categoryId,
                 userProfileId,
                 publishDateTime,
             };
@@ -75,7 +71,6 @@ const ListingForm = () => {
             const newListing = { ...currentListing };
             newListing.title = title;
             newListing.imageLocation = imageLocation;
-            newListing.categoryId = categoryId;
             newListing.content = content;
             newListing.publishDateTime = publishDateTime;
             updateListing(newListing).then(() => {

@@ -22,7 +22,7 @@ namespace Provenance.Repositories
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                                 l.IsApproved, l.UserProfileId,
                                 up.DisplayName
-                        FROM Listing l
+                        FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
                         WHERE l.IsApproved = 1 AND l.IsDeleted = 0 AND l.PublishDateTime < SYSDATETIME() AND up.isDeleted = 0
                         ORDER BY l.CreateDateTime DESC";
@@ -51,7 +51,7 @@ namespace Provenance.Repositories
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                            l.IsApproved, l.UserProfileId,
-                    FROM Listing l
+                    FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
                     WHERE l.Id = @Id AND l.isDeleted = 0";
 
@@ -87,9 +87,9 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                           l.IsApproved, l.CategoryId, l.UserProfileId,
+                           l.IsApproved, l.UserProfileId,
                            up.DisplayName       
-                    FROM Listing l
+                    FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
                     WHERE l.UserProfileId = @Id AND l.isDeleted = 0
                     ORDER BY l.CreateDateTime DESC";
@@ -119,7 +119,7 @@ namespace Provenance.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Listing (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted)
+                        INSERT INTO Listings (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted)
                         OUTPUT INSERTED.ID
                         VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @UserProfileId, @isDeleted)";
 
@@ -144,7 +144,7 @@ namespace Provenance.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        UPDATE Listing 
+                        UPDATE Listings 
                            SET Title = @Title,
                                Content = @Content,
                                ImageLocation = @ImageLocation,
@@ -191,13 +191,12 @@ namespace Provenance.Repositories
                        SELECT l.Id, l.Title, l.Content, 
                               l.ImageLocation,
                               l.CreateDateTime, l.PublishDateTime, l.IsApproved, 
-                              l.CategoryId, l.UserProfileId,
-                              c.[Name] AS CategoryName,
+                              l.UserProfileId,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
                               ut.[Name] AS UserTypeName
-                         FROM Listing l
+                         FROM Listings l
                               LEFT JOIN UserProfile u ON l.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE PublishDateTime < SYSDATETIME() AND u.FirebaseUserId = @FirebaseUserId AND l.isDeleted = 0
