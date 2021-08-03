@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import "./Listing.css"
 
 
-const ListingList = (props) => {
+const ListingList = () => {
     const { listings, getAllListings, getListingsByUserProfileId } = useContext(ListingsContext);
     const { id } = useParams();
 

@@ -75,7 +75,7 @@ export default function Header({ isLoggedIn }) {
                 <div>
               <Search />
               <ul>
-                {filterListings.map(listing => (
+                {filterListings.listings.map((listing) => (
                     <li key={listing.id}>{listing.title}</li>
                 ))}
               </ul>
