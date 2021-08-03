@@ -44,7 +44,7 @@ export default function Header({ isLoggedIn }) {
                 <NavItem>
                   <NavLink
                     tag={RRNavLink} to={`/listings/mylistings/`}>
-                    My Posts
+                    My Listings
                   </NavLink>
                 </NavItem>
               </React.Fragment>

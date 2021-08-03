@@ -8,12 +8,12 @@ import "./Listing.css"
 export const ListingDetails = () => {
     const { id } = useParams();
     const [listing, setListing] = useState();
-    const { getListingById, deleteListing } = useContext(ListingsContext);
+    const { getListingsById, deleteListing } = useContext(ListingsContext);
     const history = useHistory();
     const { currentUserId } = useContext(UserProfileContext);
 
     useEffect(() => {
-        getListingById(id).then(setListing);
+        getListingsById(id).then(setListing);
     }, []);
 
     const handleDelete = () => {
@@ -24,7 +24,7 @@ export const ListingDetails = () => {
         }
     };
 
-
+    
     const handleDate = () => {
         let date = new Date(listing.publishDateTime).toLocaleDateString('en-US');
         return date;

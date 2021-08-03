@@ -24,19 +24,19 @@ namespace Provenance.Repositories
                                 up.DisplayName
                         FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
-                        WHERE l.IsApproved = 1 AND l.IsDeleted = 0 AND l.PublishDateTime < SYSDATETIME() AND up.isDeleted = 0
+                        WHERE l.IsApproved = 1 AND l.IsDeleted = 0
                         ORDER BY l.CreateDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
-                    var posts = new List<Listing>();
+                    var listings = new List<Listing>();
                     while (reader.Read())
                     {
-                        posts.Add(NewListingFromDb(reader));
+                        listings.Add(NewListingFromDb(reader));
                     }
 
                     reader.Close();
 
-                    return posts;
+                    return listings;
                 }
             }
         }
@@ -51,9 +51,10 @@ namespace Provenance.Repositories
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
                            l.IsApproved, l.UserProfileId,
+                    up.DisplayName
                     FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
-                    WHERE l.Id = @Id AND l.isDeleted = 0";
+                    WHERE l.Id = @Id AND l.isDeleted = 0 AND l.IsDeleted = 0";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -170,7 +171,7 @@ namespace Provenance.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Listing SET isDeleted=@isDeleted WHERE Id=@Id";
+                    cmd.CommandText = @"UPDATE Listings SET isDeleted=@isDeleted WHERE Id=@Id";
                     cmd.Parameters.AddWithValue("@isDeleted", 1);
                     cmd.Parameters.AddWithValue("@Id", listingId);
 
@@ -204,16 +205,16 @@ namespace Provenance.Repositories
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", FirebaseUserId);
                     var reader = cmd.ExecuteReader();
 
-                    var posts = new List<Listing>();
+                    var listings = new List<Listing>();
 
                     while (reader.Read())
                     {
-                        posts.Add(NewListingFromDb(reader));
+                        listings.Add(NewListingFromDb(reader));
                     }
 
                     reader.Close();
 
-                    return posts;
+                    return listings;
                 }
             }
         }

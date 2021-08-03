@@ -10,7 +10,7 @@ const ListingForm = () => {
         return yyyymmdd;
     };
     
-    const { addListing, getListingById, updateListing } = useContext(ListingsContext);
+    const { addListing, getListingsById, updateListing } = useContext(ListingsContext);
     const { currentUserId } = useContext(UserProfileContext);
     const [userProfileId, setUserProfileId] = useState(0);
     const [imageLocation, setImageLocation] = useState('');
@@ -32,7 +32,7 @@ const ListingForm = () => {
         setPublishDateTime(dateFormatter(new Date().toISOString()));
         setCurrentListing();
         if (id) {
-            getListingById(id).then(setCurrentListing);
+            getListingsById(id).then(setCurrentListing);
         }
     }, [id]);
 

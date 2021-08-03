@@ -42,43 +42,30 @@ const UserProfCard = () => {
                 <CardBody>
                     <Form>
                         <Row form>
+
+                        </Row>
+                        <Row form style={{ marginLeft: "40%", width: "400em"}}>
                             <Col md={3}>
                                 <FormGroup>
-                                    <label><b>First Name:</b></label>
-                                    <label style={{ width: "12em" }}>{user.firstName} </label>
+                                    <label><b>Display Name:</b></label>
+                                    <label style={{marginLeft: ".5rem" }}> {user.displayName} </label>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <label><b>Last Name:</b></label>
-                                    <label style={{ width: "12em" }}>{user.lastName}</label>
+                                    <label style={{marginLeft: ".5rem" }}><img src={user.imageLocation}/></label>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <label><b>Email:</b></label>
-                                    <label style={{ width: "12em", marginLeft: ".5rem" }}>{user.email}</label>
-                                </FormGroup>
-                            </Col>
-
-                        </Row>
-                        <Row form>
-                            <Col md={3}>
-                                <FormGroup>
-                                    <label><b>Display Name:</b></label>
-                                    <label style={{ width: "12em" }}>{user.displayName} </label>
+                                    <label style={{marginLeft: ".5rem"}}>{user.email}</label>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <label><b>Image URL:</b></label>
-                                    <label style={{ width: "12em" }}>{user.imageLocation}</label>
-                                </FormGroup>
-                            </Col>
-                            <Col md={3}>
-                                <FormGroup>
-                                    <label><b>Created:</b></label>
-                                    <label style={{ width: "12em", marginLeft: ".5rem" }}>{user.createDateTime}</label>
+                                    <label><b>Joined:</b></label>
+                                    <label style={{marginLeft: ".5rem" }}>{user.createDateTime}</label>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
@@ -92,7 +79,7 @@ const UserProfCard = () => {
                     </Form>
                 </CardBody>
             </Card>
-            <div>
+            <div style={{ marginLeft: "40%"}}>
                 <button type="button" onClick={() => handleClick(user, 0)} style={{ width: "5em", marginLeft: ".5rem" }}>Edit</button>
                 {!user.isDeleted && <button type="button" onClick={() => handleClick(user, 1)} style={{ width: "8em", marginLeft: ".5rem" }}>De-Activate</button>}
                 {user.isDeleted && <button type="button" onClick={() => handleClick(user, 2)} style={{ width: "8em", marginLeft: ".5rem" }}>Activate</button>}
