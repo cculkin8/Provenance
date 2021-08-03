@@ -11,6 +11,62 @@ namespace Provenance.Repositories
     {
         public ListingRepository(IConfiguration configuration) : base(configuration) { }
 
+        public List<Listing> Search(string criterion, bool sortDescending)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    var sql = @"
+                        SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
+                                l.IsApproved, l.UserProfileId, l.isDeleted,
+                                up.DisplayName
+                        FROM Listings l
+                        LEFT JOIN UserProfile up on up.Id = l.UserProfileId
+                        WHERE l.IsApproved = 1 AND l.IsDeleted = 0 AND l.Title like @criterion";
+
+                    if (sortDescending)
+                    {
+                        sql += " ORDER BY l.PublishDateTime DESC";
+                    }
+                    else
+                    {
+                        sql += " ORDER BY l.PublishDateTime";
+                    }
+
+                    cmd.CommandText = sql;
+                    DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
+                    var reader = cmd.ExecuteReader();
+
+                    var listings = new List<Listing>();
+                    while (reader.Read())
+                    {
+                        listings.Add(new Listing()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            IsApproved = DbUtils.GetBoolean(reader, "IsApproved"),
+                            isDeleted = DbUtils.GetBoolean(reader, "isDeleted"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            },
+                        });
+                    }
+                    reader.Close();
+
+                    return listings;
+                }
+            }
+        }
+
         public List<Listing> GetAllListings()
         {
             using (var conn = Connection)

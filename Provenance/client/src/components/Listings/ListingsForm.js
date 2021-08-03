@@ -6,7 +6,7 @@ import { UserProfileContext } from '../../modules/UserProfileManager';
 
 const ListingForm = () => {
     const dateFormatter = (date) => {
-        const [yyyymmdd, time] = date.split('T');
+        const [yyyymmdd] = date.split('T');
         return yyyymmdd;
     };
     
@@ -36,11 +36,12 @@ const ListingForm = () => {
         }
     }, [id]);
 
-    
+    console.log(currentUserId)
+    console.log(currentListing?.userProfileId)
     useEffect(() => {
         if (currentListing) {
             if (id) {
-                if (currentUserId !== currentListing.userProfileId) {
+                if (currentUserId != currentListing.userProfileId) {
                     history.push('/');
                 }
             }

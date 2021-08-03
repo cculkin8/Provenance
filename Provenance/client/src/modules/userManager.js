@@ -53,7 +53,7 @@ export const getUserById = (id) => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error("An unknown error occurred while trying to get quotes.");
+        throw new Error("An unknown error occurred while trying return users");
       }
     });
   });
@@ -71,7 +71,7 @@ export const checkUnique = (user) => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error("An unknown error occurred while trying to get quotes.");
+        throw new Error("An unknown error occurred while trying return users");
       }
     });
   });

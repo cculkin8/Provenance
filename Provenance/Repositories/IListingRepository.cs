@@ -12,5 +12,6 @@ namespace Provenance.Repositories
         void UpdateListing(Listing listing);
         void DeleteListing(int id);
         public List<Listing> GetAllUserListings(string FirebaseUserId);
+        public List<Listing> Search(string criterion, bool sortDescending);
     }
 }

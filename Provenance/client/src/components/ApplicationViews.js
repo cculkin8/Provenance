@@ -30,6 +30,9 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/listings/:id" exact>
           {isLoggedIn ? <ListingDetails /> : <Redirect to="/login" />}
         </Route>
+        <Route path="/?s=:id" exact>
+          {isLoggedIn ? <ListingDetails /> : <Redirect to="/login" />}
+        </Route>
 
         <Route path="/create" exact>
           {isLoggedIn ? <ListingsForm /> : <Redirect to="/login" />}
