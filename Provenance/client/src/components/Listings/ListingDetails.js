@@ -50,7 +50,6 @@ export const ListingDetails = () => {
                             {listing.userProfile?.displayName}
                         </p>
                         <p> <strong>Publication Date:</strong> {handleDate()} </p>
-                        <p> <strong>Category:</strong> {listing.category?.name} </p>
                     </div>
                     <div className = "content">
                     <p>{listing.content}</p>

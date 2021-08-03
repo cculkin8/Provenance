@@ -15,8 +15,6 @@ const Listing = ({ listing }) => {
                         <strong>{listing.title}</strong>
                     </Link>
                 </p>
-
-                <p>Category: {listing.category.name}</p>
             </CardBody>
         </Card>
     );
