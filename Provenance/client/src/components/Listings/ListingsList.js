@@ -3,12 +3,11 @@ import { useParams } from 'react-router-dom';
 import { ListingsContext } from '../../modules/listingsManager';
 import Listing from './ListingListCard';
 import { Link } from 'react-router-dom';
+import "./Listing.css"
 
 
 const ListingList = () => {
-    const { listings, getAllListings, getListingsByUserProfileId } = useContext(
-        ListingsContext
-    );
+    const { listings, getAllListings, getListingsByUserProfileId } = useContext(ListingsContext);
     const { id } = useParams();
 
     useEffect(() => {
@@ -22,10 +21,10 @@ const ListingList = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="cards-column">
                     <Link to="/create">
                         <button>Create New Listing</button>
                     </Link>
+                <div className="listingcards">
                     {listings.map((listing) => {
                         return <Listing key={listing.id} listing={listing} />;
                     })}

@@ -19,7 +19,7 @@ const MyListings = () => {
     <>
       <h1>My Listings</h1>
       <div className="container">
-        <div className="listingDiv">
+        <div className="listingcards">
           { listings.map((listing) => (
             <Listing listing={ listing } key={ listing.id } />
           )) }
