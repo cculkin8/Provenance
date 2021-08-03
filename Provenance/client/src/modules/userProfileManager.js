@@ -20,7 +20,6 @@ export function UserProfileProvider(props) {
       });
   }, []);
   useEffect(() => {
-    debugger
           GetCurrentUserProfile2().then((response) => setCurrentUserId(response.id)
           );
       }, [userProfile]);
