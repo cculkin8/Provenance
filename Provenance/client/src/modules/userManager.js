@@ -13,7 +13,7 @@ export const GetAllUsers = () => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error("An unknown error occurred while trying to get quotes.");
+        throw new Error("An unknown error occurred, I hope you can figure out what caused it");
       }
     });
   });

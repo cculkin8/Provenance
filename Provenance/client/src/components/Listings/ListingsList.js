@@ -26,8 +26,8 @@ const ListingList = () => {
                     <Link to="/create">
                         <button>Create New Listing</button>
                     </Link>
-                    {listings.map((post) => {
-                        return <Listing key={listings.id} post={listings} />;
+                    {listings.map((listing) => {
+                        return <Listing key={listing.id} listing={listing} />;
                     })}
                 </div>
             </div>
