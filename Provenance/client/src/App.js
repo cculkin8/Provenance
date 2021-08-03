@@ -7,6 +7,7 @@ import { onLoginStatusChange } from "./modules/authManager";
 import { UserProfileProvider } from './modules/UserProfileManager';
 import { ListingsManager } from "./modules/listingsManager";
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 

@@ -5,7 +5,7 @@ import "./Listing.css"
 
 const Listing = ({ listing }) => {
     return (
-        <Card className="m-4">
+        <Card className="listlistcard">
             <p className="text-left px-2">
                 Posted by: {listing.userProfile.displayName}
             </p>

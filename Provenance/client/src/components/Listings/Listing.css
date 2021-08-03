@@ -1,3 +1,11 @@
 .listingImageA{
     width: 100%;
 }
+.listingcards{
+    display: flex;
+    justify-content: center;
+}
+.listlistcard{
+    width: 35%;
+    margin: .5%;
+}

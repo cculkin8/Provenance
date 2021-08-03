@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -9,14 +9,39 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import { useParams } from 'react-router-dom';
 import { logout } from '../modules/authManager';
 import { UserProfileContext } from '../modules/UserProfileManager';
+import Search from './SearchBar/Search';
+import { ListingsContext } from '../modules/listingsManager';
+
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { currentUserId } = useContext(UserProfileContext);
+  const { listings, getAllListings, getListingsByUserProfileId } = useContext(ListingsContext);
+  const { id } = useParams();
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
 
+  useEffect(() => {
+      if (!id) {
+          getAllListings();
+      } else {
+          getListingsByUserProfileId(id);
+      }
+  }, [id]);
+  const filterListings = (listings, query) => {
+    if (!query) {
+        return listings;
+    }
+
+    return listings.filter((listing) => {
+        const listingTitle = listing.title.toLowerCase();
+        return listingTitle.includes(query);
+    });
+};
 
   return (
     <div>
@@ -47,6 +72,14 @@ export default function Header({ isLoggedIn }) {
                     My Listings
                   </NavLink>
                 </NavItem>
+                <div>
+              <Search />
+              <ul>
+                {filterListings.map(listing => (
+                    <li key={listing.id}>{listing.title}</li>
+                ))}
+              </ul>
+              </div>
               </React.Fragment>
 
 
