@@ -9,6 +9,7 @@
     max-height: 3%;
 }
 
-.subscriptions::-webkit-scrollbar {
-    display: none;
+.centerme{
+    width: 100%;
+    max-height: 40em;
 }

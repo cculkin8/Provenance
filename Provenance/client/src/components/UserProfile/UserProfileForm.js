@@ -34,6 +34,7 @@ const UserProfileForm = () => {
                 editUser(user).then(resp => {
                     getUserById(id).then(() =>{
                         setValue(user.userTypeId)
+                        history.push('/userprofile')
                     });
                 });
             }else

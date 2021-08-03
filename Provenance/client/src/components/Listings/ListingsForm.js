@@ -6,7 +6,7 @@ import { UserProfileContext } from '../../modules/UserProfileManager';
 
 const ListingForm = () => {
     const dateFormatter = (date) => {
-        const [yyyymmdd] = date.split('T');
+        const [yyyymmdd] = date.split('');
         return yyyymmdd;
     };
     
@@ -15,10 +15,11 @@ const ListingForm = () => {
     const [userProfileId, setUserProfileId] = useState(0);
     const [imageLocation, setImageLocation] = useState('');
     const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
     const [content, setContent] = useState('');
-    const [publishDateTime, setPublishDateTime] = useState(
-        dateFormatter(new Date().toISOString())
-    );
+    // const [publishDateTime, setPublishDateTime] = useState(
+    //     dateFormatter(new Date().toISOString())
+    // );
     const [currentListing, setCurrentListing] = useState();
 
     const history = useHistory();
@@ -29,7 +30,8 @@ const ListingForm = () => {
         setTitle('');
         setImageLocation('');
         setContent('');
-        setPublishDateTime(dateFormatter(new Date().toISOString()));
+        setPrice('');
+     //   setPublishDateTime(dateFormatter(new Date().toISOString()));
         setCurrentListing();
         if (id) {
             getListingsById(id).then(setCurrentListing);
@@ -45,9 +47,10 @@ const ListingForm = () => {
                     history.push('/');
                 }
             }
-            setPublishDateTime(dateFormatter(currentListing.publishDateTime));
+         //   setPublishDateTime(dateFormatter(currentListing.publishDateTime));
             setImageLocation(currentListing.imageLocation);
             setTitle(currentListing.title);
+            setPrice(currentListing.price);
             setContent(currentListing.content);
         }
     }, [currentListing, currentUserId]);
@@ -61,9 +64,10 @@ const ListingForm = () => {
             const listing = {
                 imageLocation,
                 title,
+                price,
                 content,
                 userProfileId,
-                publishDateTime,
+ //               publishDateTime,
             };
             addListing(listing).then((p) => {
                 history.push('/listings');
@@ -71,12 +75,15 @@ const ListingForm = () => {
         } else {
             const newListing = { ...currentListing };
             newListing.title = title;
+            newListing.price = price;
             newListing.imageLocation = imageLocation;
             newListing.content = content;
-            newListing.publishDateTime = publishDateTime;
+            delete newListing.userProfile
+    //        newListing.publishDateTime = publishDateTime;
             updateListing(newListing).then(() => {
                 history.push(`/listings/${newListing.id}`);
             });
+            console.log(newListing)
         }
     };
 
@@ -98,6 +105,20 @@ const ListingForm = () => {
                 />
             </FormGroup>
             <FormGroup>
+                <Label for="price">Price</Label>
+                <Input
+                    type="text"
+                    name="price"
+                    id="price"
+                    placeholder="Listing Price"
+                    autoComplete="off"
+                    onChange={(e) => {
+                        setPrice(e.target.value);
+                    }}
+                    value={price}
+                />
+            </FormGroup>
+            <FormGroup>
                 <Label for="imageLocation">Image URL</Label>
                 <Input
                     type="text"
@@ -111,7 +132,7 @@ const ListingForm = () => {
                     value={imageLocation}
                 />
             </FormGroup>
-            <FormGroup>
+            {/* <FormGroup>
                 <Label for="publishDateTime">Publication Date</Label>
                 <Input
                     type="date"
@@ -122,7 +143,7 @@ const ListingForm = () => {
                     }}
                     value={publishDateTime}
                 />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
                 <Label for="content">Content</Label>
                 <Input

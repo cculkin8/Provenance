@@ -20,7 +20,7 @@ namespace Provenance.Repositories
                 {
                     var sql = @"
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                                l.IsApproved, l.UserProfileId, l.isDeleted,
+                                l.IsApproved, l.UserProfileId, l.isDeleted, l.Price,
                                 up.DisplayName
                         FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -76,7 +76,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                                l.IsApproved, l.UserProfileId,
+                                l.IsApproved, l.UserProfileId, l.Price,
                                 up.DisplayName
                         FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -106,7 +106,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                           l.IsApproved, l.UserProfileId,
+                           l.IsApproved, l.UserProfileId, l.Price,
                     up.DisplayName
                     FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -144,7 +144,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                           l.IsApproved, l.UserProfileId,
+                           l.IsApproved, l.UserProfileId,  l.Price,
                            up.DisplayName       
                     FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -176,15 +176,16 @@ namespace Provenance.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Listings (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted)
+                        INSERT INTO Listings (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted, l.Price)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @UserProfileId, @isDeleted)";
+                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @UserProfileId, @isDeleted, @Price)";
 
                     DbUtils.AddParameter(cmd, "@Title", listing.Title);
                     DbUtils.AddParameter(cmd, "@Content", listing.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", listing.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CreateDateTime", listing.CreateDateTime);
                     DbUtils.AddParameter(cmd, "@PublishDateTime", listing.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@Price", listing.Price);
                     DbUtils.AddParameter(cmd, "@IsApproved", listing.IsApproved);
                     DbUtils.AddParameter(cmd, "@UserProfileId", listing.UserProfileId);
                     DbUtils.AddParameter(cmd, "@isDeleted", listing.isDeleted);
@@ -206,13 +207,15 @@ namespace Provenance.Repositories
                                Content = @Content,
                                ImageLocation = @ImageLocation,
                                PublishDateTime = @PublishDateTime,
-                               UserProfileId = @UserProfileId
+                               UserProfileId = @UserProfileId,
+                               Price = @Price
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", listing.Title);
                     DbUtils.AddParameter(cmd, "@Content", listing.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", listing.ImageLocation);
                     DbUtils.AddParameter(cmd, "@PublishDateTime", listing.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@Price", listing.Price);
                     DbUtils.AddParameter(cmd, "@UserProfileId", listing.UserProfileId);
                     DbUtils.AddParameter(cmd, "@Id", listing.Id);
 
@@ -248,7 +251,7 @@ namespace Provenance.Repositories
                        SELECT l.Id, l.Title, l.Content, 
                               l.ImageLocation,
                               l.CreateDateTime, l.PublishDateTime, l.IsApproved, 
-                              l.UserProfileId,
+                              l.UserProfileId,  l.Price,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
@@ -286,6 +289,7 @@ namespace Provenance.Repositories
                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                 PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                 IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                Price = DbUtils.GetInt(reader, "Price"),
                 UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                 UserProfile = new UserProfile()
                 {

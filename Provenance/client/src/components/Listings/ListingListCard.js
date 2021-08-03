@@ -6,10 +6,11 @@ import "./Listing.css"
 const Listing = ({ listing }) => {
     return (
         <Card className="listlistcard">
+            <p> Priced at: {listing.price}</p>
+            <img src={listing.imageLocation} />
             <p className="text-left px-2">
                 Posted by: {listing.userProfile.displayName}
             </p>
-            <img src={listing.imageLocation} />
             <CardBody>
                 <p>
                     <Link to={`/listings/${listing.id}`}>
