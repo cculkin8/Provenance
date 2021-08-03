@@ -78,7 +78,7 @@ namespace Provenance.Controllers
             }
 
             _listingRepository.UpdateListing(listing);
-            return NoContent();
+            return Ok();
         }
 
         [HttpGet("search")]

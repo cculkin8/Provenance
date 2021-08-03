@@ -14,7 +14,7 @@ namespace Provenance.Models
         public bool IsApproved { get; set; }
         public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
-        public List<ListingTag> ListingTag { get; set; }
         public bool isDeleted { get; set; }
+        public int Price { get; set; }
     }
 }

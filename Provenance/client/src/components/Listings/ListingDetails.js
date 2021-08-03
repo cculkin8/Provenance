@@ -44,6 +44,7 @@ export const ListingDetails = () => {
                 <div className="col-sm-12 col-lg-6" id="holdingall">
                 <img className="listingImageA" src={listing.imageLocation} />
                     <h1>{listing.title}</h1>
+                    <h3>Priced at: ${listing.price}</h3>
                     <div className="listing-subheader">
                         <p>
                             <strong>Author:</strong>{' '}
@@ -54,10 +55,12 @@ export const ListingDetails = () => {
                     <div className = "content">
                     <p>{listing.content}</p>
                     </div>
+                    {currentUserId === listing.userProfileId ? (
                     <a className="buttons">
                     <button className="fas fa-trash-alt fa-2x" onClick={handleDelete} style={{ cursor: 'pointer' }}>Delete</button>
                     <button className="far fa-edit fa-2x" style={{ cursor: 'pointer' }} onClick={() => { history.push(`/edit/${listing.id}`);}}>Edit</button>
                       </a>
+                    ) : null}
                 </div>
             </div>
         </div>

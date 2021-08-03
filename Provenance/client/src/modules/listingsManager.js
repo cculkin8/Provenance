@@ -56,6 +56,10 @@ export const ListingsManager = (props) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(listing),
+            }).then((res) =>{
+                if (!res.ok) {
+                    window.alert("You are unable to edit this listing, please try again later. Or maybe don't I'm not your boss")
+                }
             })
         );
     };
