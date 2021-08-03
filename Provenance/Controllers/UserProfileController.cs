@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using Provenance.Models;
 using Provenance.Repositories;
+using System.Security.Claims;
+
 
 namespace Provenance.Controllers
 {
@@ -79,6 +81,18 @@ namespace Provenance.Controllers
             }
 
             _userProfileRepository.Edit(user);
+            return Ok(user);
+        }
+        private UserProfile GetCurrentUserProfile2()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
+        [HttpGet("GetCurrentUser3")]
+        public IActionResult GetCurrentUser3()
+        {
+            var user = GetCurrentUserProfile2();
             return Ok(user);
         }
 

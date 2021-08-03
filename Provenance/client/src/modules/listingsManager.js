@@ -86,12 +86,29 @@ export const ListingsManager = (props) => {
 
     return (
         <ListingsContext.Provider
-            value={{ listings, getAllListings, getListingsById, getListingsByUserProfileId, deleteListing, addListing, updateListing }}
+            value={{ listings, getAllListings, getListingsById, getListingsByUserProfileId, deleteListing, addListing, updateListing, setListings }}
         >
             {props.children}
         </ListingsContext.Provider>
     );
 };
+export const searchListing = (criteria, order) => {
+    return getToken().then((token) => {
+  
+      return fetch(`${baseUrl}/Search?q=${criteria}&sortDesc=${order}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(resp => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("An unknown error occurred while trying to return listings");
+        }
+      });
+    });
+  };
 const baseUrl = '/api/listings';
 export const getAllUserListings = () => {
     return getToken().then((token) => {

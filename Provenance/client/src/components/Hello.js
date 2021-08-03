@@ -8,16 +8,18 @@ export default function Hello() {
 
   return (
     <div>
-      <img className="centerme" alt="user img" />
-      <div className="justify-content-center">
-        <h2>Listings</h2>
-        <div className="subscriptions">
-          {listings.map((listing) => {
-            return <Listing key={listing.id} listing={listing} />;
-          })}
-        </div>
-      </div>
+      Hello
     </div>
   );
 }
 
+
+      // <div className="justify-content-center">
+      // <img className="centerme" alt="user img" />
+      //   <h2>Listings</h2>
+      //   <div className="subscriptions">
+      //     {listings.map((listing) => {
+      //       return <Listing key={listing.id} listing={listing} />;
+      //     })}
+      //   </div>
+      // </div>

@@ -19,12 +19,10 @@ export function UserProfileProvider(props) {
           setIsFirebaseReady(true);
       });
   }, []);
-
   useEffect(() => {
-      if (isLoggedIn) {
-          setCurrentUserId(JSON.parse(userProfile).id);
-      }
-  }, [userProfile]);
+          GetCurrentUserProfile2().then((response) => setCurrentUserId(response.id)
+          );
+      }, [userProfile]);
   const getAllUserProfiles = () => {
 
     return getToken().then((token) =>
@@ -49,7 +47,6 @@ export function UserProfileProvider(props) {
           Authorization: `Bearer ${token}`
         }
       }).then(resp => {
-        console.log("testing", resp)
         return resp.json()}));
   };
 
@@ -63,7 +60,12 @@ export function UserProfileProvider(props) {
     })
     .then(res => res.json()))
   }
-
+  const GetCurrentUserProfile2 = () => {
+    return getToken().then((token) =>
+    fetch(`${apiUrl}/GetCurrentUser3`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}`}}) .then(res => { console.log(res)
+        return res.json()}))}
 
 
   return (
