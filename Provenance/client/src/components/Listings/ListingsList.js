@@ -32,7 +32,6 @@ const ListingList = () => {
           setListings(response)
         })
       }
-      console.log(listings)
     return (
         <div className="container">
             <div className="row justify-content-center">

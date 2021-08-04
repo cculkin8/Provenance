@@ -18,9 +18,9 @@ const ListingForm = () => {
     const [price, setPrice] = useState('');
     const [content, setContent] = useState('');
     const [contact, setContact] = useState('');
-    // const [publishDateTime, setPublishDateTime] = useState(
-    //     dateFormatter(new Date().toISOString())
-    // );
+     const [publishDateTime, setPublishDateTime] = useState(
+         dateFormatter(new Date().toISOString())
+     );
     const [currentListing, setCurrentListing] = useState();
 
     const history = useHistory();
@@ -33,7 +33,7 @@ const ListingForm = () => {
         setContent('');
         setPrice('');
         setContact('');
-     //   setPublishDateTime(dateFormatter(new Date().toISOString()));
+           setPublishDateTime(dateFormatter(new Date().toISOString()));
         setCurrentListing();
         if (id) {
             getListingsById(id).then(setCurrentListing);
@@ -48,7 +48,7 @@ const ListingForm = () => {
                     history.push('/');
                 }
             }
-         //   setPublishDateTime(dateFormatter(currentListing.publishDateTime));
+               setPublishDateTime(dateFormatter(currentListing.publishDateTime));
             setImageLocation(currentListing.imageLocation);
             setTitle(currentListing.title);
             setPrice(currentListing.price);
@@ -70,7 +70,7 @@ const ListingForm = () => {
                 content,
                 userProfileId,
                 contact,
- //               publishDateTime,
+                   publishDateTime,
             };
             addListing(listing).then((p) => {
                 history.push('/listings');
@@ -83,7 +83,7 @@ const ListingForm = () => {
             newListing.content = content;
             newListing.contact = contact;
             delete newListing.userProfile
-    //        newListing.publishDateTime = publishDateTime;
+            newListing.publishDateTime = publishDateTime;
             updateListing(newListing).then(() => {
                 history.push(`/listings/${newListing.id}`);
             });
@@ -136,8 +136,8 @@ const ListingForm = () => {
                     value={imageLocation}
                 />
             </FormGroup>
-            {/* <FormGroup>
-                <Label for="publishDateTime">Publication Date</Label>
+            <FormGroup>
+                <Label for="publishDateTime">Listing Date</Label>
                 <Input
                     type="date"
                     name="publishDateTime"
@@ -147,7 +147,7 @@ const ListingForm = () => {
                     }}
                     value={publishDateTime}
                 />
-            </FormGroup> */}
+            </FormGroup>
             <FormGroup>
                 <Label for="content">Content</Label>
                 <Input
