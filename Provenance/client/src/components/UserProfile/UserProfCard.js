@@ -1,13 +1,17 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { Card, CardBody, Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { getUserById,DeleteUser, activateUser  } from "../../modules/userManager";
 import { useHistory, useParams } from "react-router";
+import { UserProfileContext } from '../../modules/UserProfileManager.js';
+
 
 const UserProfCard = () => {
     const { id } = useParams();
     const history = useHistory();
     const [isdeleted, setIsdeleted] = useState("");
     const [user, setUser] = useState({});
+    const { currentUserId } = useContext(UserProfileContext);
+
     useEffect(() => {
         getUserById(id).then(setUser);
     }, []);
@@ -79,12 +83,14 @@ const UserProfCard = () => {
                     </Form>
                 </CardBody>
             </Card>
+            {currentUserId === user.id ? (
             <div style={{ marginLeft: "40%"}}>
                 <button type="button" onClick={() => handleClick(user, 0)} style={{ width: "5em", marginLeft: ".5rem" }}>Edit</button>
                 {!user.isDeleted && <button type="button" onClick={() => handleClick(user, 1)} style={{ width: "8em", marginLeft: ".5rem" }}>De-Activate</button>}
                 {user.isDeleted && <button type="button" onClick={() => handleClick(user, 2)} style={{ width: "8em", marginLeft: ".5rem" }}>Activate</button>}
                 <button type="button" onClick={() => handleClick(user, 3)} style={{ width: "5em", marginLeft: "3rem" }}>Return</button>
             </div>
+            ) : null}
         </div>
     )
 }
