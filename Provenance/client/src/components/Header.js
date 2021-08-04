@@ -24,11 +24,13 @@ export default function Header({ isLoggedIn }) {
 
 
   useEffect(() => {
+    if (isLoggedIn) {
       if (!id) {
           getAllListings();
       } else {
           getListingsByUserProfileId(id);
       }
+    }
   }, [id]);
 
 

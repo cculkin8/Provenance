@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useHistory } from "react-router-dom";
 import { register } from "../modules/authManager";
+import { UserProfileContext } from "./../modules/userProfileManager";
 
 export default function Register() {
   const history = useHistory();
@@ -12,6 +13,7 @@ export default function Register() {
   const [email, setEmail] = useState();
   const [imageLocation, setImageLocation] = useState();
   const [password, setPassword] = useState();
+  const {setUserProfile, GetCurrentUserProfile2} = useContext(UserProfileContext);
   const [confirmPassword, setConfirmPassword] = useState();
 
   const registerClick = (e) => {
@@ -21,7 +23,9 @@ export default function Register() {
     } else {
       const userProfile = { firstName, lastName, displayName, imageLocation, email };
       register(userProfile, password)
-        .then(() => history.push("/"));
+      .then(() => {
+        GetCurrentUserProfile2().then((res) => setUserProfile(res))
+        history.push("/")});
     }
   };
 

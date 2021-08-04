@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -8,8 +8,7 @@ export const UserProfileContext = createContext();
 export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
 
-  const userProfile = sessionStorage.getItem("userProfile");
-  const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
+  const [userProfile, setUserProfile] = useState()
   const [userProfiles, setUserProfiles] = useState([])
   const [currentUserId, setCurrentUserId] = useState(0);
 
@@ -20,8 +19,10 @@ export function UserProfileProvider(props) {
       });
   }, []);
   useEffect(() => {
+    // debugger
+          if (props.isLoggedIn === true) {
           GetCurrentUserProfile2().then((response) => setCurrentUserId(response.id)
-          );
+          );}
       }, [userProfile]);
   const getAllUserProfiles = () => {
 
@@ -69,7 +70,7 @@ export function UserProfileProvider(props) {
 
 
   return (
-    <UserProfileContext.Provider value={{ userProfiles, getToken, getUserProfile, getAllUserProfiles, getUserProfileById, currentUserId}}>
+    <UserProfileContext.Provider value={{ userProfiles, getToken, getUserProfile, getAllUserProfiles, getUserProfileById, setUserProfile, GetCurrentUserProfile2, currentUserId}}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

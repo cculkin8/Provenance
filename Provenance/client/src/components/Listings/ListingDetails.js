@@ -54,7 +54,6 @@ export const ListingDetails = () => {
                     </div>
                     <div className = "content">
                     <p>{listing.content}</p>
-                    <p>{listing.contact}</p>
                     </div>
                     {currentUserId === listing.userProfileId ? (
                     <a className="buttons">

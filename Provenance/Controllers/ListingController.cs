@@ -86,6 +86,7 @@ namespace Provenance.Controllers
         {
             return Ok(_listingRepository.Search(q, sortDesc));
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

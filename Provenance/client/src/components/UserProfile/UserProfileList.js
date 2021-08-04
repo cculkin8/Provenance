@@ -14,8 +14,6 @@ import UserProfile from './UserProfile';
 
 export default function UserProfileList() {
 
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
     const [users, setUsers] = useState([]);
 
   const getUsers = () => {
