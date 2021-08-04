@@ -112,8 +112,8 @@ const UserProfileForm = () => {
                 </FormGroup>
                 <FormGroup>
                     <select value={user.userTypeId} id="userTypeId" onChange={handleSelectChange}>
-                        <option value={1}>Author</option>
-                        <option value={2}>Admin</option>
+                        <option value={2}>Author</option>
+                        <option value={1}>Admin</option>
                         
                     </select>
                 </FormGroup>

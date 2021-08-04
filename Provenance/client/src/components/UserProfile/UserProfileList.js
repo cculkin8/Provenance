@@ -32,13 +32,6 @@ export default function UserProfileList() {
                 <NavbarBrand tag={RRNavLink} to="/UserProfile">Users</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
-                        <React.Fragment>
-                            <NavItem>
-                                <NavLink className="UserColor" tag={RRNavLink} to="/">Close</NavLink>
-                            </NavItem>
-                        </React.Fragment>
-                    </Nav>
                 </Collapse>
             </Navbar>
             <div>
