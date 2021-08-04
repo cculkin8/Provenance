@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserProfileContext } from './UserProfileManager';
+import { UserProfileContext } from './userProfileManager';
 import { getToken } from './authManager'
 
 export const ListingsContext = React.createContext();

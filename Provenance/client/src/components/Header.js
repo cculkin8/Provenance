@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import { logout } from '../modules/authManager';
-import { UserProfileContext } from '../modules/UserProfileManager';
+import { UserProfileContext } from '../modules/userProfileManager';
 import { ListingsContext } from '../modules/listingsManager';
 
 

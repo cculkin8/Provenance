@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { ListingsContext } from '../../modules/listingsManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { UserProfileContext } from '../../modules/UserProfileManager';
+import { UserProfileContext } from '../../modules/userProfileManager';
 
 const ListingForm = () => {
     const dateFormatter = (date) => {
@@ -17,6 +17,7 @@ const ListingForm = () => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [content, setContent] = useState('');
+    const [contact, setContact] = useState('');
     // const [publishDateTime, setPublishDateTime] = useState(
     //     dateFormatter(new Date().toISOString())
     // );
@@ -31,6 +32,7 @@ const ListingForm = () => {
         setImageLocation('');
         setContent('');
         setPrice('');
+        setContact('');
      //   setPublishDateTime(dateFormatter(new Date().toISOString()));
         setCurrentListing();
         if (id) {
@@ -38,8 +40,7 @@ const ListingForm = () => {
         }
     }, [id]);
 
-    console.log(currentUserId)
-    console.log(currentListing?.userProfileId)
+
     useEffect(() => {
         if (currentListing) {
             if (id) {
@@ -52,6 +53,7 @@ const ListingForm = () => {
             setTitle(currentListing.title);
             setPrice(currentListing.price);
             setContent(currentListing.content);
+            setContact(currentListing.contact);
         }
     }, [currentListing, currentUserId]);
 
@@ -67,6 +69,7 @@ const ListingForm = () => {
                 price,
                 content,
                 userProfileId,
+                contact,
  //               publishDateTime,
             };
             addListing(listing).then((p) => {
@@ -78,6 +81,7 @@ const ListingForm = () => {
             newListing.price = price;
             newListing.imageLocation = imageLocation;
             newListing.content = content;
+            newListing.contact = contact;
             delete newListing.userProfile
     //        newListing.publishDateTime = publishDateTime;
             updateListing(newListing).then(() => {
@@ -156,6 +160,20 @@ const ListingForm = () => {
                         setContent(e.target.value);
                     }}
                     value={content}
+                />
+            </FormGroup>
+            <FormGroup>
+                <Label for="contact">Contact infomartion</Label>
+                <Input
+                    type="textarea"
+                    name="contact"
+                    id="contact"
+                    placeholder="Contact infomartion"
+                    autoComplete="off"
+                    onChange={(e) => {
+                        setContact(e.target.value);
+                    }}
+                    value={contact}
                 />
             </FormGroup>
             <Button onClick={handleClickSaveButton}>Submit</Button>
