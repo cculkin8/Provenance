@@ -4,7 +4,7 @@ import { Spinner } from 'reactstrap';
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
-import { UserProfileProvider } from './modules/UserProfileManager';
+import { UserProfileProvider } from './modules/userProfileManager';
 import { ListingsManager } from "./modules/listingsManager";
 
 

@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import { Card, CardBody, Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { getUserById,DeleteUser, activateUser  } from "../../modules/userManager";
 import { useHistory, useParams } from "react-router";
-import { UserProfileContext } from '../../modules/UserProfileManager.js';
+import { UserProfileContext } from '../../modules/userProfileManager.js';
 
 
 const UserProfCard = () => {

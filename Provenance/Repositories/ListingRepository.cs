@@ -20,7 +20,7 @@ namespace Provenance.Repositories
                 {
                     var sql = @"
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                                l.IsApproved, l.UserProfileId, l.isDeleted, l.Price,
+                                l.IsApproved, l.UserProfileId, l.isDeleted, l.Price, l.Contact,
                                 up.DisplayName
                         FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -52,6 +52,7 @@ namespace Provenance.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             IsApproved = DbUtils.GetBoolean(reader, "IsApproved"),
                             isDeleted = DbUtils.GetBoolean(reader, "isDeleted"),
+                            Contact = DbUtils.GetString(reader, "Contact"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
@@ -76,7 +77,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                                l.IsApproved, l.UserProfileId, l.Price,
+                                l.IsApproved, l.UserProfileId, l.Price, l.Contact,
                                 up.DisplayName
                         FROM Listings l
                         LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -106,7 +107,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                           l.IsApproved, l.UserProfileId, l.Price,
+                           l.IsApproved, l.UserProfileId, l.Price, l.Contact,
                     up.DisplayName
                     FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -144,7 +145,7 @@ namespace Provenance.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT l.Id, l.Title, l.Content, l.ImageLocation, l.CreateDateTime, l.PublishDateTime,
-                           l.IsApproved, l.UserProfileId,  l.Price,
+                           l.IsApproved, l.UserProfileId,  l.Price, l.Contact,
                            up.DisplayName       
                     FROM Listings l
                     LEFT JOIN UserProfile up on up.Id = l.UserProfileId
@@ -176,9 +177,9 @@ namespace Provenance.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Listings (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted, l.Price)
+                        INSERT INTO Listings (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, UserProfileId, isDeleted, l.Price, l.Contact)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @UserProfileId, @isDeleted, @Price)";
+                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @UserProfileId, @isDeleted, @Price, @Contact)";
 
                     DbUtils.AddParameter(cmd, "@Title", listing.Title);
                     DbUtils.AddParameter(cmd, "@Content", listing.Content);
@@ -186,6 +187,7 @@ namespace Provenance.Repositories
                     DbUtils.AddParameter(cmd, "@CreateDateTime", listing.CreateDateTime);
                     DbUtils.AddParameter(cmd, "@PublishDateTime", listing.PublishDateTime);
                     DbUtils.AddParameter(cmd, "@Price", listing.Price);
+                    DbUtils.AddParameter(cmd, "@Contact", listing.Contact);
                     DbUtils.AddParameter(cmd, "@IsApproved", listing.IsApproved);
                     DbUtils.AddParameter(cmd, "@UserProfileId", listing.UserProfileId);
                     DbUtils.AddParameter(cmd, "@isDeleted", listing.isDeleted);
@@ -208,7 +210,8 @@ namespace Provenance.Repositories
                                ImageLocation = @ImageLocation,
                                PublishDateTime = @PublishDateTime,
                                UserProfileId = @UserProfileId,
-                               Price = @Price
+                               Price = @Price,
+                               Contact = @Contact
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", listing.Title);
@@ -216,6 +219,7 @@ namespace Provenance.Repositories
                     DbUtils.AddParameter(cmd, "@ImageLocation", listing.ImageLocation);
                     DbUtils.AddParameter(cmd, "@PublishDateTime", listing.PublishDateTime);
                     DbUtils.AddParameter(cmd, "@Price", listing.Price);
+                    DbUtils.AddParameter(cmd, "@Contact", listing.Contact);
                     DbUtils.AddParameter(cmd, "@UserProfileId", listing.UserProfileId);
                     DbUtils.AddParameter(cmd, "@Id", listing.Id);
 
@@ -251,7 +255,7 @@ namespace Provenance.Repositories
                        SELECT l.Id, l.Title, l.Content, 
                               l.ImageLocation,
                               l.CreateDateTime, l.PublishDateTime, l.IsApproved, 
-                              l.UserProfileId,  l.Price,
+                              l.UserProfileId,  l.Price, l.Contact,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
@@ -290,6 +294,7 @@ namespace Provenance.Repositories
                 PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                 IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                 Price = DbUtils.GetInt(reader, "Price"),
+                Contact = DbUtils.GetString(reader, "Contact"),
                 UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                 UserProfile = new UserProfile()
                 {

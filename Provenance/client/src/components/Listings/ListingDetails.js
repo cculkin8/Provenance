@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory} from 'react-router-dom';
 import { ListingsContext } from "../../modules/listingsManager";
-import { UserProfileContext } from '../../modules/UserProfileManager.js';
+import { UserProfileContext } from '../../modules/userProfileManager.js';
 import "./Listing.css"
 
 
@@ -54,6 +54,7 @@ export const ListingDetails = () => {
                     </div>
                     <div className = "content">
                     <p>{listing.content}</p>
+                    <p>{listing.contact}</p>
                     </div>
                     {currentUserId === listing.userProfileId ? (
                     <a className="buttons">

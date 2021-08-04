@@ -16,5 +16,6 @@ namespace Provenance.Models
         public UserProfile UserProfile { get; set; }
         public bool isDeleted { get; set; }
         public int Price { get; set; }
+        public string Contact { get; set; }
     }
 }
