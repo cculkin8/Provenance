@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { UserProfileContext } from './userProfileManager';
-import { getToken } from './authManager'
+import React, { useState } from 'react';
+import firebase from "firebase/app";
+import "firebase/auth"
 
 export const ListingsContext = React.createContext();
 
 export const ListingsManager = (props) => {
-    const { getToken } = useContext(UserProfileContext);
+    const getToken = () => firebase.auth().currentUser.getIdToken();
     const [listings, setListings] = useState([]);
 
     const getAllListings = () => {
@@ -96,6 +96,8 @@ export const ListingsManager = (props) => {
         </ListingsContext.Provider>
     );
 };
+const getToken = () => firebase.auth().currentUser.getIdToken();
+
 export const searchListing = (criteria, order) => {
     return getToken().then((token) => {
   

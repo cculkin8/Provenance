@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      <UserProfileProvider>
+      <UserProfileProvider isLoggedIn={isLoggedIn}>
         <ListingsManager>
           <Header isLoggedIn={isLoggedIn} />
           <ApplicationViews isLoggedIn={isLoggedIn} />
